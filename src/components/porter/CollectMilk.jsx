@@ -35,10 +35,10 @@ const CollectMilk = () => {
         // preparing our data
         const data = {
             national_id: national_id,
-            litres: litres,
+            litres: Number( litres),
             session: session
         }
-        console.log(data)
+        // console.log(data)
         try {
             const res = await api.post("collector/milk_collections/add/", data)
             console.log(data)

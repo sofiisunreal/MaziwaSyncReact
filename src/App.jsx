@@ -14,6 +14,7 @@ import PorterDashboard from './components/porter/PorterDashboard'
 import PorterLayout from './components/porter/PorterLayout'
 import CollectMilk from './components/porter/CollectMilk'
 import MyCollections from './components/porter/MyCollections'
+import PorterNotice from './components/porter/PorterNotice'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,12 +26,13 @@ function App() {
           {/* porter role routes */}
           <Route path='/porter-dashboard' element={
             <ProtectedRoute allowedRoles={["porter"]}>
-                <PorterLayout/>
+              <PorterLayout />
             </ProtectedRoute>
-            }>
-            <Route path='' element={<PorterDashboard/>} />
-          <Route path='porter/collect-milk' element={<CollectMilk/>}/>
-          <Route path='porter/collections' element={<MyCollections/>}/>
+          }>
+            <Route path='' element={<PorterDashboard />} />
+            <Route path='porter/collect-milk' element={<CollectMilk />} />
+            <Route path='porter/collections' element={<MyCollections />} />
+            <Route path='porter/notices' element={<PorterNotice/>}/>
           </Route>
           <Route path='' element={<LandingPage />} />
           <Route path='/login' element={<Login />} />
