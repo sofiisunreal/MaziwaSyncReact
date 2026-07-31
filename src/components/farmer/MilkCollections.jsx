@@ -60,7 +60,7 @@ const MilkCollections = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-green-600 text-white">
+              <thead className="bg-gray-200 ">
                 <tr>
                   <th className='px-3 py-4 text-left'>Date</th>
                   <th className='px-3 py-4 text-left'>Porter</th>
