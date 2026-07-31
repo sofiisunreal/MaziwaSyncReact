@@ -38,7 +38,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                                 MaziwaSync
                             </h2>
                             <p className="text-xs text-green-200">
-                                Porter Dashboard
+                                Farmer Dashboard
                             </p>
                         </div>
                     </div>
@@ -46,27 +46,27 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     {/* Navigation */}
                     <nav className="space-y-2">
 
-                        <NavLink to="/porter-dashboard" end className={linkClass} onClick={() => setIsOpen(false)}>
+                        <NavLink to="/farmer-dashboard" end className={linkClass} onClick={() => setIsOpen(false)}>
                             <i className="bi bi-speedometer2"></i>
                             <span>Dashboard</span>
                         </NavLink>
 
-                        <NavLink to="/porter-dashboard/porter/collect-milk" end className={linkClass} onClick={() => setIsOpen(false)}>
-                            <i className="bi bi-plus-circle"></i>
-                            <span>Collect Milk</span>
-                        </NavLink>
 
-                        <NavLink to="/porter-dashboard/porter/collections" end className={linkClass} onClick={() => setIsOpen(false)}>
-                            <i className="bi bi-list-check"></i>
-                            <span>My Collections </span>
+                        <NavLink to="/farmer-dashboard/farmer/milkcollections" end className={linkClass} onClick={() => setIsOpen(false)}>
+                            <i className="bi bi-droplet"></i>
+                            <span>My Milk Collections </span>
                         </NavLink>
-                        <NavLink to="/porter-dashboard/porter/notices" end className={linkClass} onClick={() => setIsOpen(false)}>
+                        <NavLink to="/farmer-dashboard/farmer/feedback" end className={linkClass} onClick={() => setIsOpen(false)}>
+                            <i className="bi bi-chat-dots"></i>
+                            <span>Feeback </span>
+                        </NavLink>
+                        <NavLink to="/farmer-dashboard/farmer/notices" end className={linkClass} onClick={() => setIsOpen(false)}>
                             <i className="bi bi-megaphone"></i>
                             <span>Notices </span>
                         </NavLink>
-                        <NavLink to="/porter-dashboard/porter/profile" end className={linkClass} onClick={() => setIsOpen(false)}>
+                        <NavLink to="/farmer-dashboard/farmer/profile" end className={linkClass} onClick={() => setIsOpen(false)}>
                             <i className="bi bi-person-circle"></i>
-                            <span>My Profile </span>
+                            <span>Profile </span>
                         </NavLink>
 
 

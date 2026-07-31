@@ -15,6 +15,13 @@ import PorterLayout from './components/porter/PorterLayout'
 import CollectMilk from './components/porter/CollectMilk'
 import MyCollections from './components/porter/MyCollections'
 import PorterNotice from './components/porter/PorterNotice'
+import FarmerDashboard from './components/farmer/FarmerDashboard'
+import FarmerLayout from './components/farmer/FarmerLayout'
+import FarmerNotice from './components/farmer/FarmerNotice'
+import FarmerFeedback from './components/farmer/FarmerFeedback'
+import FarmerProfile from './components/farmer/FarmerProfile'
+import MilkCollections from './components/farmer/MilkCollections'
+import PorterProfile from './components/porter/PorterProfile'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,8 +39,24 @@ function App() {
             <Route path='' element={<PorterDashboard />} />
             <Route path='porter/collect-milk' element={<CollectMilk />} />
             <Route path='porter/collections' element={<MyCollections />} />
-            <Route path='porter/notices' element={<PorterNotice/>}/>
+            <Route path='porter/notices' element={<PorterNotice />} />
+            <Route path='porter/profile' element={<PorterProfile/>}/>
           </Route>
+
+          {/* farmer routes  */}
+          <Route path='/farmer-dashboard' element={
+            <ProtectedRoute allowedRoles={("farmer")}>
+              <FarmerLayout />
+            </ProtectedRoute>
+          }>
+            <Route path='' element={<FarmerDashboard />} />
+            <Route path='farmer/milkcollections' element={<MilkCollections/>}/>
+            <Route path='farmer/notices' element={<FarmerNotice/>}/>
+            <Route path='farmer/feedback' element={<FarmerFeedback/>}/>
+            <Route path='farmer/profile' element={<FarmerProfile/>}/>
+          </Route>
+
+
           <Route path='' element={<LandingPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/not-authorized' element={<NotAuthorized />} />
