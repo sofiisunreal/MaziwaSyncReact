@@ -7,10 +7,7 @@ const FarmerProfile = () => {
     const [error, setError] = useState("")
 
     useEffect(() => {
-
         const FetchProfile = async () => {
-
-
             try {
                 const res = await api.get("core/auth/me")
                 setData(res.data)
@@ -59,7 +56,6 @@ const FarmerProfile = () => {
                 </div>
             </div>
 
-            {/* DETAILS */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
                 <div className="bg-white rounded-2xl shadow-md p-6">
@@ -82,19 +78,19 @@ const FarmerProfile = () => {
 
                 <div className="bg-white rounded-2xl shadow-md p-6">
                     <h3 className="text-gray-400 uppercase text-xs mb-2">
-                        Employee ID
+                        Phone Number
                     </h3>
                     <p className="text-lg font-semibold text-gray-800">
-                        {profile?.employee_id || "-"}
+                        {profile?.phone_number || "-"}
                     </p>
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-md p-6">
                     <h3 className="text-gray-400 uppercase text-xs mb-2">
-                        Route
+                        Farm Name
                     </h3>
                     <p className="text-lg font-semibold text-gray-800">
-                        {profile?.route_name || "-"}
+                        {profile?.farm_name || "-"}
                     </p>
                 </div>
 

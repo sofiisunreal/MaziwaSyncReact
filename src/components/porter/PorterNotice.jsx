@@ -44,7 +44,7 @@ const PorterNotice = () => {
                             : 'border-green-500'
                             } `}>
                             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                                <h3 className="text-lg font-semibold text-gray-800">{notice.title}</h3>
+                                <h3 className="w-1/3 text-lg font-semibold text-gray-800">{notice.title}</h3>
                                 {notice.is_important && (
                                     <span className="bg-red-100 text-red-600 text-xspx-2 py-1 rounded-full font-medium">
                                         Important
@@ -55,7 +55,7 @@ const PorterNotice = () => {
                                 </span>
                                 <p className="mt-3 text-gray-600">{notice.message}</p>
                                 <div className="mt-4 flex items-center gap-2">
-                                    <span className="text-xs bg-greem-200 text-gray-600 px-3 py-1 rounded-full">
+                                    <span className="text-xs bg-green-200 text-gray-600 px-3 py-1 rounded-full">
                                         {notice.target}
                                     </span>
                                 </div>

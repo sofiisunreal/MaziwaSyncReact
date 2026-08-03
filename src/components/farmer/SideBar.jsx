@@ -68,6 +68,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                             <i className="bi bi-person-circle"></i>
                             <span>Profile </span>
                         </NavLink>
+                        <NavLink to="/farmer-dashboard/farmer/cattle-ai" end className={linkClass} onClick={() => setIsOpen(false)}>
+                            <i className="bi bi-robot"></i>
+                            <span>Cattle AI </span>
+                        </NavLink>
 
 
 
