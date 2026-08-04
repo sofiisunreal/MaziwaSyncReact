@@ -23,6 +23,13 @@ import FarmerProfile from './components/farmer/FarmerProfile'
 import MilkCollections from './components/farmer/MilkCollections'
 import PorterProfile from './components/porter/PorterProfile'
 import CattleAI from './components/farmer/CattleAI'
+import AdminDashboard from './components/admin/AdminDashboard'
+import AdminLayout from './components/admin/AdminLayout'
+import AdminProfile from './components/admin/AdminProfile'
+import PorterList from './components/admin/PorterList'
+import { ToastContainer } from 'react-toastify'
+import PorterEdit from './components/admin/PorterEdit'
+import PorterAdd from './components/admin/PorterAdd'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -30,6 +37,10 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <ToastContainer 
+        position='top-right'
+        autoClose={3000}
+        hideProgressBar={false}/>
         <Routes>
           {/* porter role routes */}
           <Route path='/porter-dashboard' element={
@@ -56,6 +67,20 @@ function App() {
             <Route path='farmer/feedback' element={<FarmerFeedback/>}/>
             <Route path='farmer/profile' element={<FarmerProfile/>}/>
             <Route path='farmer/cattle-ai' element={<CattleAI/>}/>
+          </Route>
+
+          {/* admin routes  */}
+          <Route path='/admin-dashboard' element={
+            <ProtectedRoute allowedRoles={("admin")}>
+              <AdminLayout/>
+            </ProtectedRoute>
+          }>
+            <Route path='' element={<AdminDashboard/>}/>
+            <Route path='admin/profile' element={<AdminProfile/>}/>
+            <Route path='admin/porter' element={<PorterList/>}/>
+            <Route path='admin/porter/edit/:id' element={<PorterEdit/>}/>
+            <Route path='admin/porter/add' element={<PorterAdd/>}/>
+
           </Route>
 
 
