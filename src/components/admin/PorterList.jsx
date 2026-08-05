@@ -38,7 +38,7 @@ const PorterList = () => {
     <div className="p-5">
       <div className="flex flex-col md:flex-row justify-between gap-3 mb-5">
         <h2 className="text-2xl font-bold text-gray-800">Porters</h2>
-        <button className="milk-btn" onClick={() => navigate("admin-dashboard/admin/porters/add")}>Register Porter</button>
+        <button className="milk-btn" onClick={() => navigate("add")}>Register Porter</button>
       </div>
       {loading && <><p>Loading..</p></>}
       {!loading && !porters?.length && <><p>No porters found</p></>}
@@ -85,7 +85,7 @@ const PorterList = () => {
                     </td>
                     <td className="p-3 flex gap-3">
                       <button
-                        onClick={() => navigate(`/admin-dashboard/porters/edit/${p.id}`)}
+                        onClick={() => navigate(`/admin-dashboard/admin/porter/edit/${p.id}`)}
                         className="bg-blue-500 text-white px-3 py-1 rounded">
                         Edit
                       </button>
@@ -105,7 +105,7 @@ const PorterList = () => {
           {/* Mobile cards */}
 
           <div className="md:hidden space-y-3">
-            {porters.map(p => (
+            {porters.map((p) => (
               <div key={p.id} className="card p-4">
                 <div className="flex justify-between">
                   <div>
@@ -126,7 +126,7 @@ const PorterList = () => {
                 </div>
                 <div className="mt-3">
                   <button
-                    onClick={() => navigate(`/admin-dashboard/porters/edit/${p.id}`)}
+                    onClick={() => navigate(`/admin-dashboard/admin/porter/edit/${p.id}`)}
                     className="bg-blue-500 text-white px-3 py-1 rounded">
                     Edit
                   </button>

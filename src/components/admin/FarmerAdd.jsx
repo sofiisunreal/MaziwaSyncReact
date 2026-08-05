@@ -1,64 +1,59 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import api from "../context/api/api";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import api from '../context/api/api'
 
-const PorterAdd = () => {
-  const navigate = useNavigate();
-
+const FarmerAdd = () => {
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
     phone_number: "",
     national_id: "",
-    employee_id: "",
-    route_name: "",
+    farm_name: "",
     username: "",
     email: "",
     password: "",
-    role: "porter",
-  });
-
-  const [loading, setLoading] = useState(false);
+    role: "farmer",
+  })
+    const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       await api.post("core/auth/register/", form);
-      toast.success("Porter added successfully");
-      setTimeout(() => navigate("/admin-dashboard/admin/porter"), 1000);
+      toast.success("Farmer added successfully");
+      setTimeout(() => navigate("/admin-dashboard/admin/farmer"), 1000);
 
     } catch (err) {
       const error = err.response?.data;
       toast.error(
         error ? Object.values(error).flat().join(" ") : "Failed to add porter"
       );
-
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
             <button
-              onClick={() => navigate("/admin-dashboard/admin/porter")}
+              onClick={() => navigate("/admin-dashboard/admin/farmer")}
               className="text-blue-600 hover:text-blue-700 text-sm font-medium mb-2"
             >
-              ← Back to Porters
+              ← Back to Farmers
             </button>
             <h1 className="text-3xl font-bold text-gray-800">
-              Add New Porter
+              Add New Farmer
             </h1>
             <p className="text-gray-500 text-sm">
-              Fill in the details below to register a porter.
+              Fill in the details below to register a farmer.
             </p>
           </div>
         </div>
@@ -132,29 +127,16 @@ const PorterAdd = () => {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  Employee ID
-                </label>
-                <input
-                  name="employee_id"
-                  value={form.employee_id}
-                  onChange={handleChange}
-                  placeholder="EMP001"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                  required
-                />
-              </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Route
+                  Farm Name
                 </label>
                 <input
-                  name="route_name"
-                  value={form.route_name}
+                  name="farm_name"
+                  value={form.farm_name}
                   onChange={handleChange}
-                  placeholder="Route A"
+                  placeholder="Farm A"
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   required
                 />
@@ -222,7 +204,7 @@ const PorterAdd = () => {
           <div className="bg-gray-50 border-t px-6 py-4 flex justify-end gap-3">
             <button
               type="button"
-              onClick={() => navigate("/admin-dashboard/admin/porter")}
+              onClick={() => navigate("/admin-dashboard/admin/farmer")}
               className="px-5 py-2 rounded-lg border border-gray-300 hover:bg-gray-100"
             >
               Cancel
@@ -242,4 +224,5 @@ const PorterAdd = () => {
     </div>
   );
 }
-  export default PorterAdd;
+
+export default FarmerAdd

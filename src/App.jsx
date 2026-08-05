@@ -30,6 +30,9 @@ import PorterList from './components/admin/PorterList'
 import { ToastContainer } from 'react-toastify'
 import PorterEdit from './components/admin/PorterEdit'
 import PorterAdd from './components/admin/PorterAdd'
+import FarmerList from './components/admin/FarmerList'
+import FarmerEdit from './components/admin/FarmerEdit'
+import FarmerAdd from './components/admin/FarmerAdd'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -80,6 +83,9 @@ function App() {
             <Route path='admin/porter' element={<PorterList/>}/>
             <Route path='admin/porter/edit/:id' element={<PorterEdit/>}/>
             <Route path='admin/porter/add' element={<PorterAdd/>}/>
+            <Route path='admin/farmer' element={<FarmerList/>}/>
+            <Route path='admin/farmer/edit/:id' element={<FarmerEdit/>}/>
+            <Route path='admin/farmer/add' element={<FarmerAdd/>}/>
 
           </Route>
 
