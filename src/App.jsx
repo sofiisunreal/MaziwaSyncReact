@@ -33,6 +33,8 @@ import PorterAdd from './components/admin/PorterAdd'
 import FarmerList from './components/admin/FarmerList'
 import FarmerEdit from './components/admin/FarmerEdit'
 import FarmerAdd from './components/admin/FarmerAdd'
+import FarmersBal from './components/admin/FarmersBal'
+import PayFarmer from './components/admin/PayFarmer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -86,6 +88,8 @@ function App() {
             <Route path='admin/farmer' element={<FarmerList/>}/>
             <Route path='admin/farmer/edit/:id' element={<FarmerEdit/>}/>
             <Route path='admin/farmer/add' element={<FarmerAdd/>}/>
+            <Route path='admin/farmer/balance' element={<FarmersBal/>}/>
+            <Route path='admin/farmer/payfarmer' element={<PayFarmer/>}/>
 
           </Route>
 
