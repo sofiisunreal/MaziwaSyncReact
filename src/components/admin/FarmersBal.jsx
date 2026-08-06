@@ -1,80 +1,219 @@
-import React, { useEffect, useState } from 'react'
-import api from '../context/api/api'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import api from "../context/api/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const FarmersBal = () => {
-    const [balance, setBalance] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [balance, setBalance] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    const navigate=useNavigate()
+    const navigate = useNavigate();
+
     const FetchBalance = async () => {
-        setLoading(true)
+        setLoading(true);
+
         try {
-            const { data } = await api.get("cooperative/farmers/balance/")
-            setBalance(data)
-            console.log(data)
+            const { data } = await api.get("cooperative/farmers/balance/");
+            setBalance(data);
+            console.log(data);
         } catch (error) {
-            toast.error("Failed to fetch farmers with balances")
+            toast.error("Failed to fetch farmers with balances");
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
+
     useEffect(() => {
-        FetchBalance()
-    }, [])
+        FetchBalance();
+    }, []);
 
     return (
-        <div className="p-5">
-            <div className="flex flex-col md:flex-row justify-between gap-3 mb-5">
-                <h2 className="text-2xl font-bold text-gray-800">Farmers with Balance</h2>
-            </div>
-            {loading && <><p>Loading..</p></>}
-            {!loading && !balance?.length && <><p>No farmers with balances found</p></>}
-            {balance?.length > 0 && (
-                <div className="hidden md:block card overflow-x-auto">
-                    <table className="w-full text-sm">
-                        <thead className="border-b text-gray-500">
-                            <tr>
-                                <th className="p-3">Farmer</th>
-                                <th className="p-3">Total Earned</th>
-                                <th className="p-3">Paid</th>
-                                <th className="p-3">Balance</th>
-                                <th className="p-3">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {balance.map((b) => (
-                                <tr className="border-b" key={b.id}>
-                                    <td className="p-3">
-                                        <b>{b.farmer}</b>
-                                    </td>
-                                    <td className="p-3">
-                                        <b>{b.earned}</b>
-                                    </td>
-                                    <td className="p-3">
-                                        <b>{b.paid}</b>
-                                    </td>
-                                    <td className="p-3">
-                                        <b>{b.balance}</b>
-                                    </td>
-                                    <td className="p-3">
-                                        <span>
-                                            {b.balance > 0 ?
-                                                <button onClick={ ()=>navigate("/admin-dashboard/admin/farmer/payfarmer")}className='milk-btn'>Pay Farmer</button>
-                                                :"Farmer Balance Cleared"
-                                            }
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+        <div className="space-y-6 p-6">
+            {/* Header */}
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-800">
+                        Farmers Balances
+                    </h1>
+                    <p className="text-gray-500">
+                        Monitor outstanding farmer payments.
+                    </p>
                 </div>
-            )
-            }
-        </div>
-    )
-}
 
-export default FarmersBal
+                <div className="rounded-xl bg-emerald-50 px-5 py-3 border border-emerald-100">
+                    <p className="text-sm text-gray-500">Farmers with Records</p>
+                    <p className="text-2xl font-bold text-emerald-600">
+                        {balance.length}
+                    </p>
+                </div>
+            </div>
+
+            {/* Loading */}
+            {loading && (
+                <div className="rounded-xl border bg-white p-10 text-center shadow-sm">
+                    <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-green-600"></div>
+                    <p className="text-gray-500">Loading farmer balances...</p>
+                </div>
+            )}
+
+            {/* Empty */}
+            {!loading && !balance.length && (
+                <div className="rounded-xl border border-dashed bg-white p-10 text-center shadow-sm">
+                    <div className="mb-3 text-5xl">🌾</div>
+                    <h3 className="text-lg font-semibold text-gray-700">
+                        No Farmers Found
+                    </h3>
+                    <p className="mt-2 text-gray-500">
+                        There are currently no farmers with balances.
+                    </p>
+                </div>
+            )}
+
+            {/* Desktop Table */}
+            {!loading && balance.length > 0 && (
+                <>
+                    <div className="hidden overflow-hidden rounded-2xl border bg-white shadow md:block">
+                        <table className="w-full">
+                            <thead className="bg-gray-50">
+                                <tr className="text-left text-sm uppercase tracking-wide text-gray-500">
+                                    <th className="px-6 py-4">Farmer</th>
+                                    <th className="px-6 py-4">Earned</th>
+                                    <th className="px-6 py-4">Paid</th>
+                                    <th className="px-6 py-4">Balance</th>
+                                    <th className="px-6 py-4 text-center">Status</th>
+                                    <th className="px-6 py-4 text-center">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {balance.map((b) => (
+                                    <tr
+                                        key={b.id}
+                                        className="border-t transition hover:bg-gray-50"
+                                    >
+                                        <td className="px-6 py-5 font-semibold text-gray-800">
+                                            {b.farmer}
+                                        </td>
+
+                                        <td className="px-6 py-5 font-medium text-gray-700">
+                                            Ksh {Number(b.earned).toLocaleString()}
+                                        </td>
+
+                                        <td className="px-6 py-5 font-medium text-gray-700">
+                                            Ksh {Number(b.paid).toLocaleString()}
+                                        </td>
+
+                                        <td className="px-6 py-5">
+                                            <span
+                                                className={`rounded-full px-3 py-1 text-sm font-semibold ${b.balance > 0
+                                                        ? "bg-red-100 text-red-600"
+                                                        : "bg-green-100 text-green-600"
+                                                    }`}
+                                            >
+                                                Ksh {Number(b.balance).toLocaleString()}
+                                            </span>
+                                        </td>
+
+                                        <td className="px-6 py-5 text-center">
+                                            {b.balance > 0 ? (
+                                                <span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-700">
+                                                    Pending
+                                                </span>
+                                            ) : (
+                                                <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                                                    Cleared
+                                                </span>
+                                            )}
+                                        </td>
+
+                                        <td className="px-6 py-5 text-center">
+                                            {b.balance > 0 ? (
+                                                <button
+                                                    onClick={() =>
+                                                        navigate(
+                                                            "/admin-dashboard/admin/farmer/payfarmer"
+                                                        )
+                                                    }
+                                                    className="rounded-lg bg-green-600 px-4 py-2 font-medium text-white transition hover:bg-green-700"
+                                                >
+                                                    Pay Farmer
+                                                </button>
+                                            ) : (
+                                                <span className="text-sm font-medium text-gray-400">
+                                                    No Action Needed
+                                                </span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Mobile Cards */}
+                    <div className="space-y-4 md:hidden">
+                        {balance.map((b) => (
+                            <div
+                                key={b.id}
+                                className="rounded-2xl border bg-white p-5 shadow-sm"
+                            >
+                                <div className="mb-4 flex items-center justify-between">
+                                    <h3 className="font-bold text-gray-800">{b.farmer}</h3>
+
+                                    <span
+                                        className={`rounded-full px-3 py-1 text-xs font-semibold ${b.balance > 0
+                                                ? "bg-red-100 text-red-600"
+                                                : "bg-green-100 text-green-600"
+                                            }`}
+                                    >
+                                        {b.balance > 0 ? "Pending" : "Paid"}
+                                    </span>
+                                </div>
+
+                                <div className="space-y-2 text-sm">
+                                    <div className="flex justify-between">
+                                        <span className="text-gray-500">Earned</span>
+                                        <span className="font-semibold">
+                                            Ksh {Number(b.earned).toLocaleString()}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex justify-between">
+                                        <span className="text-gray-500">Paid</span>
+                                        <span className="font-semibold">
+                                            Ksh {Number(b.paid).toLocaleString()}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex justify-between">
+                                        <span className="text-gray-500">Balance</span>
+                                        <span className="font-bold text-red-600">
+                                            Ksh {Number(b.balance).toLocaleString()}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {b.balance > 0 ? (
+                                    <button
+                                        onClick={() =>
+                                            navigate("/admin-dashboard/admin/farmer/payfarmer")
+                                        }
+                                        className="mt-5 w-full rounded-lg bg-green-600 py-3 font-medium text-white transition hover:bg-green-700"
+                                    >
+                                        Pay Farmer
+                                    </button>
+                                ) : (
+                                    <div className="mt-5 rounded-lg bg-green-50 py-3 text-center font-medium text-green-600">
+                                        Farmer Balance Cleared
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
+        </div>
+    );
+};
+
+export default FarmersBal;

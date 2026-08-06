@@ -5,11 +5,11 @@ const FarmerFeedback = () => {
   const [feedbacks, setFeedbacks] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const [showForm,setShowForm]=useState(false)
-  const[editingId,setEditingId]=useState(null)
+  const [showForm, setShowForm] = useState(false)
+  const [editingId, setEditingId] = useState(null)
 
-  const[title,setTitle]=useState("")
-  const[description,setDescription]=useState("")
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
 
   const FetchFeedback = async () => {
     try {
@@ -31,8 +31,8 @@ const FarmerFeedback = () => {
   </>
   )
   // delete feedback
-  const HandleDelete=async (id) => {
-    const confirmDelete=window.confirm("Delete this feedback? ")
+  const HandleDelete = async (id) => {
+    const confirmDelete = window.confirm("Delete this feedback? ")
     if (!confirm) return
     try {
       await api.delete(`farmer/feedback/${id}`)
@@ -41,33 +41,33 @@ const FarmerFeedback = () => {
       console.log(error)
     }
   }
-  // edit feedback 
-  const HandleEdit=(feedback)=>{
+  // edit feedback
+  const HandleEdit = (feedback) => {
     setTitle(feedback.title)
     setDescription(feedback.description)
     setEditingId(feedback.id)
     setShowForm(true)
-  
+
   }
 
-  // cancel 
-  const HandleCancel=()=>{
+  // cancel
+  const HandleCancel = () => {
     setTitle("")
     setDescription("")
     setEditingId(null)
     setShowForm(false)
-  
+
   }
-  // on submit 
-  const HandleSubmit=async (e) => {
+  // on submit
+  const HandleSubmit = async (e) => {
     e.preventDefault()
-    const data={title,description}
+    const data = { title, description }
     try {
-      if (editingId){
-        const res=await api.patch(`farmer/feedback/${editingId}/`,data)
+      if (editingId) {
+        const res = await api.patch(`farmer/feedback/${editingId}/`, data)
         console.log(res)
-      }      else{
-        const res= await api.post("farmer/feedback/",data)
+      } else {
+        const res = await api.post("farmer/feedback/", data)
         console.log(res)
       }
       setTitle("")
@@ -77,9 +77,9 @@ const FarmerFeedback = () => {
       FetchFeedback()
 
     } catch (error) {
-      
+
     }
-    
+
   }
   return (
     <div className='p-4 md:p-4 space-y-6'>
@@ -88,26 +88,26 @@ const FarmerFeedback = () => {
           <h1 className="text-2xl font-bold text-gray-800">FeedBacks</h1>
           <p>View and submit feedback</p>
         </div>
-        <button onClick={()=>setShowForm(!showForm)} className="bg-green-600 hover:bg-green-700 text-white px-4 rounded-lg py-1">
-          {showForm? "Close Form":"Add Feedback"}
+        <button onClick={() => setShowForm(!showForm)} className="bg-green-600 hover:bg-green-700 text-white px-4 rounded-lg py-1">
+          {showForm ? "Close Form" : "Add Feedback"}
         </button>
       </div>
 
       {/* form here  */}
-      {showForm &&(
+      {showForm && (
         <div>
-          <h2>{editingId?"Editing" : "Add Feedback"}</h2>
-          <form onSubmit={HandleSubmit}action="" className='space-y-4'>
-            <input type="text" placeholder='Feedback title' className='w-full border border-green-500 rounded-lg p-3' required value={title} onChange={(e)=>setTitle(e.target.value)} />
+          <h2>{editingId ? "Editing" : "Add Feedback"}</h2>
+          <form onSubmit={HandleSubmit} action="" className='space-y-4'>
+            <input type="text" placeholder='Feedback title' className='w-full border border-green-500 rounded-lg p-3' required value={title} onChange={(e) => setTitle(e.target.value)} />
 
-            <textarea rows={4} placeholder='Write your feedback' className='w-full border border-green-500 rounded-lg p-3' value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+            <textarea rows={4} placeholder='Write your feedback' className='w-full border border-green-500 rounded-lg p-3' value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
 
             <div className="flex gap-4">
               <button className='bg-green-600 text-white hover:bg-green-700 px-5 py-2 rounded-lg' type='submit'>
-                {editingId?"Update Feedback":"Submit Feedback"}
+                {editingId ? "Update Feedback" : "Submit Feedback"}
               </button>
-              <button onClick={()=>HandleCancel()}type='button' className='bg-red-200 hover:bg-red-300 py-2 px-5 rounded-lg text-red-500'>
-                  cancel
+              <button onClick={() => HandleCancel()} type='button' className='bg-red-200 hover:bg-red-300 py-2 px-5 rounded-lg text-red-500'>
+                cancel
               </button>
             </div>
           </form>
@@ -140,11 +140,11 @@ const FarmerFeedback = () => {
               {feedback.description}
             </p>
             <div className="flex gap-2 mb-3">
-              <button onClick={()=>HandleEdit(feedback)} className="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 text-sm hover:bg-blue-200">
+              <button onClick={() => HandleEdit(feedback)} className="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 text-sm hover:bg-blue-200">
                 <i className="bi bi-pencil-square me-2"></i>
                 Edit
               </button>
-              <button onClick={()=>HandleDelete(feedback.id)} className="px-3 py-1 rounded-lg bg-red-100 text-red-700 text-sm hover:bg-red-200">
+              <button onClick={() => HandleDelete(feedback.id)} className="px-3 py-1 rounded-lg bg-red-100 text-red-700 text-sm hover:bg-red-200">
                 <i className="bi bi-trash me-2"></i>
                 Delete
               </button>
