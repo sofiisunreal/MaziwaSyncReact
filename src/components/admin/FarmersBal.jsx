@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const FarmersBal = () => {
-    const [balance, setBalance] = useState([]);
+    const [farmer, setFarmer] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ const FarmersBal = () => {
 
         try {
             const { data } = await api.get("cooperative/farmers/balance/");
-            setBalance(data);
+            setFarmer(data);
             console.log(data);
         } catch (error) {
             toast.error("Failed to fetch farmers with balances");
@@ -22,6 +22,13 @@ const FarmersBal = () => {
             setLoading(false);
         }
     };
+
+    // navigate to use payFarmer component 
+    // move with the farmer object 
+    const HandlePay=(farmer)=>{
+        navigate("/admin-dashboard/admin/farmer/payfarmer",{state:{farmer}})
+    }
+
 
     useEffect(() => {
         FetchBalance();
@@ -43,7 +50,7 @@ const FarmersBal = () => {
                 <div className="rounded-xl bg-emerald-50 px-5 py-3 border border-emerald-100">
                     <p className="text-sm text-gray-500">Farmers with Records</p>
                     <p className="text-2xl font-bold text-emerald-600">
-                        {balance.length}
+                        {farmer.length}
                     </p>
                 </div>
             </div>
@@ -57,7 +64,7 @@ const FarmersBal = () => {
             )}
 
             {/* Empty */}
-            {!loading && !balance.length && (
+            {!loading && !farmer.length && (
                 <div className="rounded-xl border border-dashed bg-white p-10 text-center shadow-sm">
                     <div className="mb-3 text-5xl">🌾</div>
                     <h3 className="text-lg font-semibold text-gray-700">
@@ -70,7 +77,7 @@ const FarmersBal = () => {
             )}
 
             {/* Desktop Table */}
-            {!loading && balance.length > 0 && (
+            {!loading && farmer.length > 0 && (
                 <>
                     <div className="hidden overflow-hidden rounded-2xl border bg-white shadow md:block">
                         <table className="w-full">
@@ -86,36 +93,36 @@ const FarmersBal = () => {
                             </thead>
 
                             <tbody>
-                                {balance.map((b) => (
+                                {farmer.map((f) => (
                                     <tr
-                                        key={b.id}
+                                        key={f.id}
                                         className="border-t transition hover:bg-gray-50"
                                     >
                                         <td className="px-6 py-5 font-semibold text-gray-800">
-                                            {b.farmer}
+                                            {f.farmer}
                                         </td>
 
                                         <td className="px-6 py-5 font-medium text-gray-700">
-                                            Ksh {Number(b.earned).toLocaleString()}
+                                            Ksh {Number(f.earned).toLocaleString()}
                                         </td>
 
                                         <td className="px-6 py-5 font-medium text-gray-700">
-                                            Ksh {Number(b.paid).toLocaleString()}
+                                            Ksh {Number(f.paid).toLocaleString()}
                                         </td>
 
                                         <td className="px-6 py-5">
                                             <span
-                                                className={`rounded-full px-3 py-1 text-sm font-semibold ${b.balance > 0
-                                                        ? "bg-red-100 text-red-600"
-                                                        : "bg-green-100 text-green-600"
+                                                className={`rounded-full px-3 py-1 text-sm font-semibold ${f.balance > 0
+                                                    ? "bg-red-100 text-red-600"
+                                                    : "bg-green-100 text-green-600"
                                                     }`}
                                             >
-                                                Ksh {Number(b.balance).toLocaleString()}
+                                                Ksh {Number(f.balance).toLocaleString()}
                                             </span>
                                         </td>
 
                                         <td className="px-6 py-5 text-center">
-                                            {b.balance > 0 ? (
+                                            {f.balance > 0 ? (
                                                 <span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-700">
                                                     Pending
                                                 </span>
@@ -127,13 +134,8 @@ const FarmersBal = () => {
                                         </td>
 
                                         <td className="px-6 py-5 text-center">
-                                            {b.balance > 0 ? (
-                                                <button
-                                                    onClick={() =>
-                                                        navigate(
-                                                            "/admin-dashboard/admin/farmer/payfarmer"
-                                                        )
-                                                    }
+                                            {f.balance > 0 ? (
+                                                <button disabled={f.balance <= 0} onClick={()=>HandlePay(f)}
                                                     className="rounded-lg bg-green-600 px-4 py-2 font-medium text-white transition hover:bg-green-700"
                                                 >
                                                     Pay Farmer
@@ -152,21 +154,21 @@ const FarmersBal = () => {
 
                     {/* Mobile Cards */}
                     <div className="space-y-4 md:hidden">
-                        {balance.map((b) => (
+                        {farmer.map((f) => (
                             <div
-                                key={b.id}
+                                key={f.id}
                                 className="rounded-2xl border bg-white p-5 shadow-sm"
                             >
                                 <div className="mb-4 flex items-center justify-between">
-                                    <h3 className="font-bold text-gray-800">{b.farmer}</h3>
+                                    <h3 className="font-bold text-gray-800">{f.farmer}</h3>
 
                                     <span
-                                        className={`rounded-full px-3 py-1 text-xs font-semibold ${b.balance > 0
-                                                ? "bg-red-100 text-red-600"
-                                                : "bg-green-100 text-green-600"
+                                        className={`rounded-full px-3 py-1 text-xs font-semibold ${f.balance > 0
+                                            ? "bg-red-100 text-red-600"
+                                            : "bg-green-100 text-green-600"
                                             }`}
                                     >
-                                        {b.balance > 0 ? "Pending" : "Paid"}
+                                        {f.balance > 0 ? "Pending" : "Paid"}
                                     </span>
                                 </div>
 
@@ -174,30 +176,32 @@ const FarmersBal = () => {
                                     <div className="flex justify-between">
                                         <span className="text-gray-500">Earned</span>
                                         <span className="font-semibold">
-                                            Ksh {Number(b.earned).toLocaleString()}
+                                            Ksh {Number(f.earned).toLocaleString()}
                                         </span>
                                     </div>
 
                                     <div className="flex justify-between">
                                         <span className="text-gray-500">Paid</span>
                                         <span className="font-semibold">
-                                            Ksh {Number(b.paid).toLocaleString()}
+                                            Ksh {Number(f.paid).toLocaleString()}
                                         </span>
                                     </div>
 
                                     <div className="flex justify-between">
                                         <span className="text-gray-500">Balance</span>
                                         <span className="font-bold text-red-600">
-                                            Ksh {Number(b.balance).toLocaleString()}
+                                            Ksh {Number(f.balance).toLocaleString()}
                                         </span>
                                     </div>
                                 </div>
 
-                                {b.balance > 0 ? (
+                                {f.balance > 0 ? (
                                     <button
-                                        onClick={() =>
-                                            navigate("/admin-dashboard/admin/farmer/payfarmer")
-                                        }
+                                        disabled={f.balance <= 0}
+                                        onClick={()=>HandlePay(b)}
+                                        // onClick={() =>
+                                        //     navigate("/admin-dashboard/admin/farmer/payfarmer")
+                                        // }
                                         className="mt-5 w-full rounded-lg bg-green-600 py-3 font-medium text-white transition hover:bg-green-700"
                                     >
                                         Pay Farmer
