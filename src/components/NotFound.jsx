@@ -9,8 +9,8 @@ const NotFound = () => {
 
                 <h1 className='text-9xl font-extrabold text-teal-600 leading-none'>404</h1>
                 <div className='w-16 h-1 bg-green-500 mx-auto my-4 rounded-full'></div>
-                <h2 className='text-2l font-bold text-gray-800 mb-2'> Page Nor Found</h2>
-                <p className='tlex items-center justify-center gap-3'>The page you're looking for doesnt exist or has been moved</p>
+                <h2 className='text-2l font-bold text-gray-800 mb-2'> Page Not Found</h2>
+                <p className='flex items-center justify-center gap-3'>The page you're looking for doesnt exist or has been moved</p>
 
                 <div className='flex items-center justify-center gap-3 my-4'>
                     <button onClick={() => navigate(-1)} className='px-5 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-200 transition text-sm'><i class="bi bi-arrow-left-short"> </i> Back</button>

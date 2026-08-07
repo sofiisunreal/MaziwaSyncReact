@@ -10,7 +10,7 @@ const NotAuthorized = () => {
                 <h1 className='text-9xl font-extrabold text-red-600 leading-none'>403</h1>
                 <div className='w-16 h-1 bg-red-500 mx-auto my-4 rounded-full'></div>
                 <h2 className='text-2l font-bold text-gray-800 mb-2'>Access Denied</h2>
-                <p className='tlex items-center justify-center gap-3'> You dont have permission to view this page</p>
+                <p className='flex items-center justify-center gap-3'> You dont have permission to view this page</p>
 
                 <div className='flex items-center justify-center gap-3 my-4'>
                     <button onClick={() => navigate(-1)} className='px-5 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-200 transition text-sm  '> <i className="bi bi-arrow-left-short"></i>  Back</button>
