@@ -35,6 +35,10 @@ import FarmerEdit from './components/admin/FarmerEdit'
 import FarmerAdd from './components/admin/FarmerAdd'
 import FarmersBal from './components/admin/FarmersBal'
 import PayFarmer from './components/admin/PayFarmer'
+import Notices from './components/admin/NoticesList'
+import NoticesList from './components/admin/NoticesList'
+import NoticesAdd from './components/admin/NoticesAdd'
+import NoticeEdit from './components/admin/NoticeEdit'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -42,10 +46,10 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <ToastContainer 
-        position='top-right'
-        autoClose={3000}
-        hideProgressBar={false}/>
+        <ToastContainer
+          position='top-right'
+          autoClose={3000}
+          hideProgressBar={false} />
         <Routes>
           {/* porter role routes */}
           <Route path='/porter-dashboard' element={
@@ -57,7 +61,7 @@ function App() {
             <Route path='porter/collect-milk' element={<CollectMilk />} />
             <Route path='porter/collections' element={<MyCollections />} />
             <Route path='porter/notices' element={<PorterNotice />} />
-            <Route path='porter/profile' element={<PorterProfile/>}/>
+            <Route path='porter/profile' element={<PorterProfile />} />
           </Route>
 
           {/* farmer routes  */}
@@ -67,29 +71,32 @@ function App() {
             </ProtectedRoute>
           }>
             <Route path='' element={<FarmerDashboard />} />
-            <Route path='farmer/milkcollections' element={<MilkCollections/>}/>
-            <Route path='farmer/notices' element={<FarmerNotice/>}/>
-            <Route path='farmer/feedback' element={<FarmerFeedback/>}/>
-            <Route path='farmer/profile' element={<FarmerProfile/>}/>
-            <Route path='farmer/cattle-ai' element={<CattleAI/>}/>
+            <Route path='farmer/milkcollections' element={<MilkCollections />} />
+            <Route path='farmer/notices' element={<FarmerNotice />} />
+            <Route path='farmer/feedback' element={<FarmerFeedback />} />
+            <Route path='farmer/profile' element={<FarmerProfile />} />
+            <Route path='farmer/cattle-ai' element={<CattleAI />} />
           </Route>
 
           {/* admin routes  */}
           <Route path='/admin-dashboard' element={
             <ProtectedRoute allowedRoles={("admin")}>
-              <AdminLayout/>
+              <AdminLayout />
             </ProtectedRoute>
           }>
-            <Route path='' element={<AdminDashboard/>}/>
-            <Route path='admin/profile' element={<AdminProfile/>}/>
-            <Route path='admin/porter' element={<PorterList/>}/>
-            <Route path='admin/porter/edit/:id' element={<PorterEdit/>}/>
-            <Route path='admin/porter/add' element={<PorterAdd/>}/>
-            <Route path='admin/farmer' element={<FarmerList/>}/>
-            <Route path='admin/farmer/edit/:id' element={<FarmerEdit/>}/>
-            <Route path='admin/farmer/add' element={<FarmerAdd/>}/>
-            <Route path='admin/farmer/balance' element={<FarmersBal/>}/>
-            <Route path='admin/farmer/payfarmer' element={<PayFarmer/>}/>
+            <Route path='' element={<AdminDashboard />} />
+            <Route path='admin/profile' element={<AdminProfile />} />
+            <Route path='admin/porter' element={<PorterList />} />
+            <Route path='admin/porter/edit/:id' element={<PorterEdit />} />
+            <Route path='admin/porter/add' element={<PorterAdd />} />
+            <Route path='admin/farmer' element={<FarmerList />} />
+            <Route path='admin/farmer/edit/:id' element={<FarmerEdit />} />
+            <Route path='admin/farmer/add' element={<FarmerAdd />} />
+            <Route path='admin/farmer/balance' element={<FarmersBal />} />
+            <Route path='admin/farmer/payfarmer' element={<PayFarmer />} />
+            <Route path='admin/notices' element={<NoticesList />} />
+            <Route path='admin/notices/add' element={<NoticesAdd />} />
+            <Route path='admin/notices/edit/:id' element={<NoticeEdit />} />
 
           </Route>
 
